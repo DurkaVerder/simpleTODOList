@@ -24,7 +24,6 @@ func main() {
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal("Error to start server")
 	}
-	log.Println("Server work")
 }
 
 func GetPostMethod(w http.ResponseWriter, r *http.Request) {
@@ -39,15 +38,17 @@ func GetPostMethod(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func idMethod(w http.ResponseWriter, r *http.Request){
+func idMethod(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Path[len("/tasks/"):])
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	switch r.Method{
+	switch r.Method {
 	case http.MethodDelete:
 		deleteTask(w, id)
+	default:
+		w.WriteHeader(http.StatusBadRequest)
 	}
 }
 
@@ -82,10 +83,10 @@ func addTask(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(task)
 }
 
-func deleteTask(w http.ResponseWriter, id int){
+func deleteTask(w http.ResponseWriter, id int) {
 	if _, ok := tasks[id]; !ok {
 		w.WriteHeader(http.StatusNotFound)
 		return
-	} 
+	}
 	delete(tasks, id)
 }
