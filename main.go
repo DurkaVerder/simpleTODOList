@@ -110,7 +110,7 @@ func postTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	postSQL := `INSERT INTO task (header, content) VALUE ($1, $2)`
+	postSQL := `INSERT INTO task (header, content) VALUES ($1, $2)`
 	if _, err := db.Exec(postSQL, t.Header, t.Content); err != nil {
 		log.Fatal("Error insert data in database: ", err)
 	}
