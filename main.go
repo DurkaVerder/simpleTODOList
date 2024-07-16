@@ -124,6 +124,7 @@ func deleteTask(w http.ResponseWriter, id int) {
 		log.Fatal("Error delete: ", err)
 	}
 	log.Println("Complete DELETE-request")
+	w.WriteHeader(http.StatusOK)
 }
 
 func putTask(w http.ResponseWriter, r *http.Request, id int) {

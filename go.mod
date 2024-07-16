@@ -1,4 +1,4 @@
-module todolist
+module simpletodolist
 
 go 1.22.2
 
